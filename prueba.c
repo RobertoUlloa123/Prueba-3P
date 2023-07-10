@@ -33,15 +33,33 @@ int main()
         printf("Error al abrir el archivo.\n");
         return 1;
     }
+        int i = 0;
+    while (fscanf(archivo, "%d;%[^;];%[^;];%f;%f;%f\n", &datos[i].numero, datos[i].nombre,
+                  datos[i].carrera, &datos[i].nota1, &datos[i].nota2, &datos[i].nota3) == 6)
+    {
+        i++;
+    }
     fclose(archivo);
     return 0;
 }
-/*escribi de nuevo para abrir un nuevo archivo y ahi ordenarlo*/
-// Ordenar los datos
-   // Escribir los datos ordenados en otro archivo
+
+   // Escribir los datos ordenados en otro archivo  /*el código lee los datos de un archivo, los ordena y
+    luego escribe los datos ordenados en otro archivo en el formato requerido.*/
+    qsort(datos, sizeof(datos) / sizeof(struct Datos), sizeof(struct Datos), comparar);
+    // Escribir los datos ordenados en otro archivo
     archivo = fopen("alumnos_ordenados.txt", "w");
     if (archivo == NULL)
     {
         printf("Error al abrir el archivo.\n");
         return 1;
     }
+for (int i = 0; i < 8; i++)
+    {
+        fprintf(archivo, "%d;%s;%s;%.2f;%.2f;%.2f\n", datos[i].numero, datos[i].nombre,
+                datos[i].carrera, datos[i].nota1, datos[i].nota2, datos[i].nota3);
+    }
+
+    fclose(archivo);
+    printf("\n Se ha ordenado el archivo exitosamente \n");
+    return 0;
+}
