@@ -1,27 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-int main(int argc, char const *argv[])
-{
-    FILE *archivo;
-    char caracter;
-    archivo = fopen("alumnos.txt", "r");
-    while (!feof(archivo))
-    {
-        caracter = fgetc(archivo);
-        putchar(caracter);
-    }
-    fclose(archivo);
-    return 0;
-}
-// Función de comparación
-int comparar(const void *a, const void *b)
-{
-    struct Datos *dato1 = (struct Datos *)a;
-    struct Datos *dato2 = (struct Datos *)b;
-    return (dato2->numero - dato1->numero);
-}
 // Estructura para almacenar los datos de cada texto
 struct Datos
 {
@@ -33,19 +12,36 @@ struct Datos
     float nota3;
     float promedio;
 };
-// Ordenar de mayor a menor
-int main(int argc, char const *argv[])
+// Función de comparación 
+int comparar(int *a, int *b)
 {
+    const struct Datos *dato1 = (const struct Datos *)a;
+    const struct Datos *dato2 = (const struct Datos *)b;
+    return (dato2->numero - dato1->numero);
+}
+int main()
+{
+     // Arreglo de datos
+    struct Datos datos[8];
+    // Leer los datos del archivo
     FILE *archivo;
     char caracter;
-    archivo = fopen("alumnos2.0.txt", "w");
-    int fputs = ((struct Datos), archivo);
-    fclose(archivo);
-    while (!feof(archivo))
+    archivo = fopen("alumnos.txt", "r");
+    //if para cuando el archivo no se encuentre dentro del programa nos de un aviso
+    if (archivo == NULL)
     {
-        caracter = fgetc(archivo);
-        putchar(caracter);
+        printf("Error al abrir el archivo.\n");
+        return 1;
     }
     fclose(archivo);
     return 0;
 }
+/*escribi de nuevo para abrir un nuevo archivo y ahi ordenarlo*/
+// Ordenar los datos
+   // Escribir los datos ordenados en otro archivo
+    archivo = fopen("alumnos_ordenados.txt", "w");
+    if (archivo == NULL)
+    {
+        printf("Error al abrir el archivo.\n");
+        return 1;
+    }
